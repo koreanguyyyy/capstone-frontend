@@ -6,6 +6,7 @@ import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Save, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { getUser, updatePreferences } from "@/api/user";
 import type { UserPreference } from "@/types";
 
@@ -53,6 +54,7 @@ export default function Settings() {
   const [prefs, setPrefs] = useState<UserPreference | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [nickname, setNickname] = useState("");
 
   useEffect(() => {
@@ -95,6 +97,11 @@ export default function Settings() {
         cooldownMinutes: prefs.cooldownMinutes,
       });
       setPrefs(updated);
+      setSaveMessage("설정이 저장되었습니다.");
+      setTimeout(() => setSaveMessage(null), 3000);
+    } catch {
+      setSaveMessage("저장에 실패했습니다. 다시 시도해주세요.");
+      setTimeout(() => setSaveMessage(null), 3000);
     } finally {
       setSaving(false);
     }
@@ -201,6 +208,19 @@ export default function Settings() {
         <Save className="mr-2 h-4 w-4" />
         {saving ? "저장 중..." : "설정 저장"}
       </Button>
+
+      {saveMessage && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className={cn(
+            "rounded-lg px-4 py-3 text-sm font-medium shadow-lg",
+            saveMessage.includes("실패")
+              ? "bg-destructive text-destructive-foreground"
+              : "bg-primary text-primary-foreground"
+          )}>
+            {saveMessage}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
