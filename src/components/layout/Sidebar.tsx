@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import {
   LayoutDashboard,
   History,
@@ -18,10 +18,10 @@ const NAV_ITEMS = [
 export default function Sidebar() {
   return (
     <aside className="hidden md:flex w-64 flex-col border-r border-border bg-sidebar text-sidebar-foreground">
-      <div className="flex items-center gap-2 px-6 py-5 border-b border-sidebar-border">
+      <Link to="/" className="flex items-center gap-2 px-6 py-5 border-b border-sidebar-border hover:bg-sidebar-accent/50 transition-colors">
         <Brain className="h-7 w-7 text-sidebar-primary" />
         <span className="text-lg font-semibold">EmotionAI</span>
-      </div>
+      </Link>
 
       <nav className="flex-1 px-3 py-4 space-y-1">
         {NAV_ITEMS.map(({ to, icon: Icon, label }) => (
