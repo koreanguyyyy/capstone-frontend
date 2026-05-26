@@ -43,7 +43,7 @@ export default function Dashboard() {
   const totalDetections = todayLogs.length;
   const avgStress =
     todayLogs.length > 0
-      ? todayLogs.reduce((s, l) => s + l.finalStressLevel, 0) / todayLogs.length
+      ? todayLogs.reduce((s, l) => s + (l.finalStressLevel ?? 0), 0) / todayLogs.length
       : 0;
   const todayInterventions = interventions.filter((i) =>
     isSameDay(parseISO(i.createdAt), today)
@@ -51,7 +51,7 @@ export default function Dashboard() {
 
   const emotionCounts: Record<string, number> = {};
   todayLogs.forEach((l) => {
-    const e = l.primaryEmotion.toLowerCase();
+    const e = (l.primaryEmotion ?? l.faceEmotion ?? "neutral").toLowerCase();
     emotionCounts[e] = (emotionCounts[e] || 0) + 1;
   });
 
@@ -69,7 +69,7 @@ export default function Dashboard() {
     if (isAfter(d, subDays(sevenDaysAgo, 1))) {
       const key = format(d, "MM/dd");
       if (!stressByDay[key]) stressByDay[key] = [];
-      stressByDay[key].push(l.finalStressLevel);
+      stressByDay[key].push(l.finalStressLevel ?? 0);
     }
   });
 

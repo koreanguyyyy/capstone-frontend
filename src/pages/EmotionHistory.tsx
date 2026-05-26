@@ -39,7 +39,7 @@ export default function EmotionHistory() {
 
   const emotionSet = useMemo(() => {
     const set = new Set<string>();
-    dayLogs.forEach((l) => set.add(l.primaryEmotion.toLowerCase()));
+    dayLogs.forEach((l) => set.add((l.primaryEmotion ?? l.faceEmotion ?? "neutral").toLowerCase()));
     return Array.from(set);
   }, [dayLogs]);
 
@@ -50,7 +50,7 @@ export default function EmotionHistory() {
     }
     dayLogs.forEach((l) => {
       const h = parseISO(l.detectedAt).getHours();
-      const emotion = l.primaryEmotion.toLowerCase();
+      const emotion = (l.primaryEmotion ?? l.faceEmotion ?? "neutral").toLowerCase();
       const key = `${h}시`;
       hours[key][emotion] = (hours[key][emotion] || 0) + 1;
     });
@@ -145,15 +145,15 @@ export default function EmotionHistory() {
                             className="inline-block h-2.5 w-2.5 rounded-full"
                             style={{
                               backgroundColor:
-                                EMOTION_COLORS[log.primaryEmotion.toLowerCase()] ??
+                                EMOTION_COLORS[(log.primaryEmotion ?? log.faceEmotion ?? "neutral").toLowerCase()] ??
                                 "#95A5A6",
                             }}
                           />
-                          {EMOTION_LABELS[log.primaryEmotion.toLowerCase()] ??
-                            log.primaryEmotion}
+                          {EMOTION_LABELS[(log.primaryEmotion ?? log.faceEmotion ?? "neutral").toLowerCase()] ??
+                            (log.primaryEmotion ?? log.faceEmotion ?? "neutral")}
                         </span>
                       </TableCell>
-                      <TableCell>{log.finalStressLevel}/10</TableCell>
+                      <TableCell>{log.finalStressLevel ?? 0}/10</TableCell>
                       <TableCell className="hidden sm:table-cell max-w-xs truncate">
                         {log.speechText ?? "-"}
                       </TableCell>

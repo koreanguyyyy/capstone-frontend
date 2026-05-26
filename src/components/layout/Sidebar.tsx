@@ -5,11 +5,13 @@ import {
   MessageSquare,
   Settings,
   Brain,
+  Activity,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { to: "/", icon: LayoutDashboard, label: "대시보드" },
+  { to: "/monitor", icon: Activity, label: "실시간 모니터링" },
   { to: "/emotions", icon: History, label: "감정 이력" },
   { to: "/interventions", icon: MessageSquare, label: "개입/추천" },
   { to: "/settings", icon: Settings, label: "설정" },
