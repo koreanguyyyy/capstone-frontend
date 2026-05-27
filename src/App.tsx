@@ -6,6 +6,7 @@ import Dashboard from "@/pages/Dashboard";
 import EmotionHistory from "@/pages/EmotionHistory";
 import Interventions from "@/pages/Interventions";
 import Settings from "@/pages/Settings";
+import Monitor from "@/pages/Monitor";
 
 export default function App() {
   const { dark, toggle } = useTheme();
@@ -21,6 +22,7 @@ export default function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/emotions" element={<EmotionHistory />} />
               <Route path="/interventions" element={<Interventions />} />
+              <Route path="/monitor" element={<Monitor />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
           </main>

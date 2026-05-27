@@ -8,6 +8,7 @@ import {
   MessageSquare,
   Settings,
   Brain,
+  Activity,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ import { useState } from "react";
 
 const TITLES: Record<string, string> = {
   "/": "대시보드",
+  "/monitor": "실시간 모니터링",
   "/emotions": "감정 이력",
   "/interventions": "개입/추천 이력",
   "/settings": "설정",
@@ -22,6 +24,7 @@ const TITLES: Record<string, string> = {
 
 const NAV_ITEMS = [
   { to: "/", icon: LayoutDashboard, label: "대시보드" },
+  { to: "/monitor", icon: Activity, label: "실시간 모니터링" },
   { to: "/emotions", icon: History, label: "감정 이력" },
   { to: "/interventions", icon: MessageSquare, label: "개입/추천" },
   { to: "/settings", icon: Settings, label: "설정" },
